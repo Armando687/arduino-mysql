@@ -21,8 +21,16 @@ const int ventiladorPIN = 8;
 const int bombaPIN = 7;
 
 //stados
-int status1 = 0;
-int status2 = 0;
+int historiaHumedad = 0;
+int historiaTemperatura = 0;
+int statusVentilador = 0;
+int historiaVentilador = 0;
+int statusMotor = 0;
+int historiaMotor = 0;
+int historiaLed = 0;
+
+//variable de control
+int control = 0;
 
 //intancia de objetos
 LiquidCrystal_I2C lcd(0x3f,16,2); 
@@ -68,18 +76,37 @@ void setup() {
   pinMode(ledPIN,OUTPUT);
   pinMode(ventiladorPIN,OUTPUT);
   pinMode(bombaPIN,OUTPUT);
+  control = 1;
 }
 
 
 void loop() {
-  digitalWrite(ledPIN,HIGH);// encendemos la luz
-  delay(1000);
+  if(statusMotor == 0){
+    
+      int estadoLed = digitalRead(ledPIN);
+      if(estadoLed == 0 && control == 1){
+        digitalWrite(ledPIN,HIGH);// encendemos la luz
+        control = 2;
+        historiaLed = 1;  
+        saveEstadoLed();
+      }
+      if(estadoLed != historiaLed){
+        digitalWrite(ledPIN,HIGH);// encendemos la luz
+        historiaLed = estadoLed;  
+        saveEstadoLed();
+      }
+      delay(1000);  
+  }
+
+  
   temperatura1 = dht1.readTemperature();
   temperatura2 = dht2.readTemperature();
   temperaturapromedio = (temperatura1 + temperatura2)/2;
+  
   humedad1 = dht1.readHumidity();
   humedad2 = dht2.readHumidity();
   humedadpromedio = (humedad1 + humedad2)/2;
+  
   lcd.clear();
   lcd.setCursor(0,0);
   lcd.print("TEMPERATURA = ");
@@ -89,51 +116,91 @@ void loop() {
   lcd.print(humedadpromedio);
   lcd.display();
   delay(500);
-  //lcd.noDisplay();
-  //delay(500);
-  if(temperaturapromedio >= 20 && temperaturapromedio <=27){
+
+  
+  if(temperaturapromedio != historiaTemperatura || humedadpromedio != historiaHumedad){
     saveTemperaturaHumedad();
-    //solo hace calor
-    status1 = 1;
-    digitalWrite(ventiladorPIN,HIGH); //encendemos el ventilador
-    
-    delay(5000);
+    historiaTemperatura = temperaturapromedio;
+    historiaHumedad = humedadpromedio;
     
   }
-  if(temperaturapromedio <= 19 && status1 == 1){
+  if(temperaturapromedio >= 20 && temperaturapromedio <=27){
+    //solo hace calor
+    statusVentilador = 1;
+    digitalWrite(ventiladorPIN,HIGH); //encendemos el ventilador
+    if(statusVentilador != historiaVentilador){
+        historiaVentilador = statusVentilador;      
+        saveEstadoVentilador(); 
+    }
+    delay(2000);
+    
+  }
+  if(temperaturapromedio <= 19 && statusVentilador == 1){
     digitalWrite(ventiladorPIN,LOW);// apagamos ventilador
     delay(1000);
-    status1 = 0;
+    statusVentilador = 0;
+    historiaVentilador = statusVentilador;      
+    saveEstadoVentilador();
   }
   if(temperaturapromedio >= 28){
-    if(status1 = 1){
+    if(statusVentilador = 1){
       digitalWrite(ventiladorPIN,LOW);// apagamos ventilador
       delay(1000);
-      status1 = 0;
+      statusVentilador = 0;
+      historiaVentilador = statusVentilador;      
+      saveEstadoVentilador();
     }
     //entonces hay un incendio
-    digitalWrite(ledPIN,LOW);//apagamos la luz simulando cortando al conexion electrica
-    delay(1000);
-    digitalWrite(bombaPIN,HIGH);//encendemos la bomba de agua;
-    delay(5000);
-    status2 = 1;
+    int estadoLed = digitalRead(ledPIN);
+      if(estadoLed != historiaLed){
+        digitalWrite(ledPIN,LOW);//apagamos la luz simulando cortando al conexion electrica
+        historiaLed = estadoLed;  
+        saveEstadoLed();
+      }
+    statusMotor = 1;
+    if(statusMotor != historiaMotor){
+      digitalWrite(bombaPIN,HIGH);//encendemos la bomba de agua;  
+      historiaMotor = statusMotor;
+      saveEstadoMotor();
+      delay(3000);
+    }
+    
   }
   
-  if(temperaturapromedio <=27 && status2 == 1){
+  if(temperaturapromedio <=27 && statusMotor == 1){
     digitalWrite(bombaPIN,LOW);//apagamos la bomba de agua;
+    statusMotor = 0;
+    historiaMotor = statusMotor;
+    saveEstadoMotor();
     delay(2000);
-    status2 = 0;
+    
   }
 }
 void saveTemperaturaHumedad(){
-    Serial.println("Empezando a guardar");
+    Serial.println("Empezando a guardar humedad y temperatura");
     MySQL_Cursor *cur_mem = new MySQL_Cursor(&conn);
-    //dtostrf(50.125, 1, 1, 16);
-    sprintf(query, INSERT_DHT,24,16);
-    // Execute the query
+    sprintf(query, INSERT_DHT,temperaturapromedio,humedadpromedio);
     cur_mem->execute(query);
-    // Note: since there are no results, we do not need to read any data
-    // Deleting the cursor also frees up memory used
     delete cur_mem;
-    Serial.println("Data recorded.");
+}
+void saveEstadoLed(){
+    Serial.println("Empezando a guardar estado led");
+    MySQL_Cursor *cur_mem = new MySQL_Cursor(&conn);
+    sprintf(query, INSERT_LED,historiaLed);
+    cur_mem->execute(query);
+    delete cur_mem;
+}
+void saveEstadoVentilador(){
+    Serial.println("Empezando a guardar estado ventilador");
+    MySQL_Cursor *cur_mem = new MySQL_Cursor(&conn);
+    sprintf(query, INSERT_VT,historiaVentilador);
+    cur_mem->execute(query);
+    delete cur_mem;
+}
+void saveEstadoMotor(){
+    Serial.println("Empezando a guardar estado Motor");
+    MySQL_Cursor *cur_mem = new MySQL_Cursor(&conn);
+    sprintf(query, INSERT_MT,historiaMotor);
+    cur_mem->execute(query);
+    delete cur_mem;
 }
