@@ -11,44 +11,44 @@
 <body>
     <table >
         <tr>
-            <th colspan="2" >Temperatura</th>
+            <th class="title" colspan="2" >Temperatura</th>
         </tr>
         <tr>
-            <th>Accion</th>
-            <th>Estado</th>
+            <th class="subtitle">Accion</th>
+            <th class="subtitle">Estado</th>
         </tr>
         <tr>    
-            <td>Temperatura Promedio</td>
-            <td id = "temperatura">12</td>
+            <td class="title-content">Temperatura Promedio</td>
+            <td  class="content" id = "temperatura">12</td>
         </tr>
         <tr>    
-            <td>Humedad Promedio</td>
-            <td id = "humedad">30</td>
+            <td class="title-content" >Humedad Promedio</td>
+            <td class="content" id = "humedad">30</td>
         </tr>
         <tr>    
-            <td>Fecha de Registro </td>
-            <td id = "fecha">2019-06-30</td>
+            <td class="title-content">Fecha de Registro </td>
+            <td class="content" id = "fecha">2019-06-30</td>
         </tr>
         <tr>    
-            <th colspan="2" >Conexion electrica</th>
+            <th class="subtitle" colspan="2" >Conexion electrica</th>
         </tr>
         <tr>
-            <td>Estado</td>
-            <td id="estadoLed">..........</td>
+            <td class="title-content" >Estado</td>
+            <td class="content"  id="estadoLed">..........</td>
         </tr>
         <tr>    
-            <th colspan="2">Calefacción</th>
+            <th  class="subtitle" colspan="2">Calefacción</th>
         </tr>
         <tr>
-            <td>Estado</td>
-            <td id="estadoVt">-------</td>
+            <td class="title-content">Estado</td>
+            <td class="content" id="estadoVt">-------</td>
         </tr>
         <tr>    
-            <th colspan="2">Extintores</th>
+            <th  class="subtitle" colspan="2">Extintores</th>
         </tr>
         <tr>
-            <td>Estado</td>
-            <td id="estadoMt">..........</td>
+            <td class="title-content">Estado</td>
+            <td class="content" id="estadoMt">..........</td>
         </tr>
     </table>
     <!-- <script type="text/javascript">
