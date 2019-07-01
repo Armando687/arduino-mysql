@@ -13,6 +13,11 @@
         $humedad = $fila['humedad'];
         $fecha = $fila['fecha'];
     }
-    
+    $json = [
+        'temperatura' => $temperatura,
+        'humedad' => $humedad,
+        'fecha' => $fecha
+    ];
+    print(json_encode($json));
 
 ?>
