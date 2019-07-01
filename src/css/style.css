@@ -1,3 +1,28 @@
-table, th, td {
-    border: 1px solid black;
-  }
+table {
+    width: 500px;
+    margin: 0 auto;
+}
+
+.title {
+    padding: 10px 0px;
+    color: #fff;
+    background: #0d47a1;
+}
+
+.subtitle {
+    background: #64b5f6;
+    padding: 7px 0px;
+    color: #000;
+}
+
+.title-content,
+.content {
+    background: #e3f2fd;
+    padding: 5px;
+}
+
+@media only screen and (max-width: 767px) {
+    table {
+        width: 100%;
+    }
+}
