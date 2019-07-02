@@ -1,10 +1,9 @@
 <?php
+    include('./connection.php');
     $temperatura;
     $humedad;
     $fecha;
-	$mysqli = new mysqli("localhost","admin","admin","db_arduino");
-
-    $mysqli->real_query("SELECT id,temperatura,humedad,fecha FROM temperatura_humedad");
+    $mysqli->real_query("SELECT id,temperatura,humedad,fecha FROM temperatura_humedad ORDER BY id DESC LIMIT 1");
     $resultado = $mysqli->use_result();
 
     //echo "Orden del conjunto de resultados...\n";

@@ -1,9 +1,8 @@
 <?php
+    include('./connection.php');
     $estado;
     $fecha;
-	$mysqli = new mysqli("localhost","admin","admin","db_arduino");
-
-    $mysqli->real_query("SELECT estado,fecha FROM ventilador");
+    $mysqli->real_query("SELECT estado,fecha FROM ventilador ORDER BY id DESC LIMIT 1");
     $resultado = $mysqli->use_result();
 
     //echo "Orden del conjunto de resultados...\n";

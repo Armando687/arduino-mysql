@@ -8,12 +8,11 @@
 </head>
 <body>
 <?php
+    include('./connection.php');
     $temperatura_min;
     $temperatura_max;
     $temperatura_media;
     $temperatura_critica;
-	$mysqli = new mysqli("localhost","admin","admin","db_arduino");
-
     $mysqli->real_query("SELECT * FROM configuracion");
     $resultado = $mysqli->use_result();
     while ($fila = $resultado->fetch_assoc()) {
