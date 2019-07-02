@@ -27,12 +27,10 @@ exit`
  Ejecute cada uno directame en consola mysql, para entrar a la consola de mysql ejecute el comando `sudo mysql -u root -p` 
  * Ahora importe la base de datos se encuentra en ./db/db_arduino.sql , es importante que el nombre de la base de datos sea en minúsculas y de ser necesario separado por guion bajo, el uso de otro tipo de caracteres, ocacionara fallos en la conexion de arduino a mysql.
  * Bien ahora solo queda hacer unas pequeñas modificaciones al codigo de arduino, modifique el nombre de usuario y password para mysql, ademas de proporcionarle la ip del servidor mysql y una ip para escuchar a arduino.
- `//datos para conexion a servidor
-byte mac_addr[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
-
-IPAddress server_mysql(192,168,1,10);// IP of the MySQL *server* here
-IPAddress server_addr(192,168,1,50);// IP of the arduiono *server* here
-char user[] = "arduino";              // MySQL user login username
-char password[] = "arduino";        // MySQL user login password `
+ `byte mac_addr[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
+    IPAddress server_mysql(192,168,1,10);// IP of the MySQL *server* here
+    IPAddress server_addr(192,168,1,50);// IP of the arduiono *server* here
+    char user[] = "arduino";              // MySQL user login username
+    char password[] = "arduino";        // MySQL user login password `
 * Ahora estamos listos, si estas en linux puede que necesites dar permisos al puerto antes de ejecutarlo, usa este comando para habilitar el puerto usb `ls -l /dev | grep ACM` y `sudo chmod 777 /dev/ttyACM1` este comando solo esta activo mientras el puerto usb sigue conectado, cuando lo desconectes este se restaurara y tendras que repetir el proceso. Ahora simplemente toca probar codigo.
 
