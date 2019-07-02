@@ -47,9 +47,9 @@ char password[] = "arduino";        // MySQL user login password
 
 // Sample query
 char INSERT_DHT[] = "INSERT INTO db_arduino.temperatura_humedad(temperatura,humedad) VALUES (%d,%d)";
-char INSERT_LED[] = "INSERT INTO db_arduino.conexion_electrica(estado) VALUES (%h)";
-char INSERT_MT[] = "INSERT INTO db_arduino.bomba_hidraulica(estado) VALUES (%h)";
-char INSERT_VT[] = "INSERT INTO db_arduino.ventilador(estado) VALUES (%h)";
+char INSERT_LED[] = "INSERT INTO db_arduino.conexion_electrica(estado) VALUES (%d)";
+char INSERT_MT[] = "INSERT INTO db_arduino.bomba_hidraulica(estado) VALUES (%d)";
+char INSERT_VT[] = "INSERT INTO db_arduino.ventilador(estado) VALUES (%d)";
 char query[128];
 
 EthernetClient client;
