@@ -113,8 +113,8 @@ void setup() {
 
 
 void loop() {
-  if(statusMotor == 0){
-    
+
+  if(statusMotor == 0){  
       int estadoLed = digitalRead(ledPIN);
       if(estadoLed == 0 && control == 1){
         digitalWrite(ledPIN,HIGH);// encendemos la luz
@@ -149,13 +149,14 @@ void loop() {
   lcd.display();
   delay(500);
 
-  
+  //guardamos en base de datos solo si los datos de lectura an cambiado
   if(temperaturapromedio != historiaTemperatura || humedadpromedio != historiaHumedad){
     saveTemperaturaHumedad();
     historiaTemperatura = temperaturapromedio;
     historiaHumedad = humedadpromedio;
     
   }
+  //analisamos los intervalos de temperatura para encender o no la calefacción
   if(temperaturapromedio >= temperatura_min && temperaturapromedio <= temperatura_max){
     //solo hace calor
     statusVentilador = 1;
@@ -167,6 +168,7 @@ void loop() {
     delay(2000);
     
   }
+  //validamos que la temperatura ya a bajado y es temperatura ambiente
   if(temperaturapromedio <= temperatura_media && statusVentilador == 1){
     digitalWrite(ventiladorPIN,LOW);// apagamos ventilador
     delay(1000);
@@ -174,6 +176,7 @@ void loop() {
     historiaVentilador = statusVentilador;      
     saveEstadoVentilador();
   }
+  //si la temperatura no baja , entonces se considera un incendio
   if(temperaturapromedio >= temperatura_critica){
     if(statusVentilador = 1){
       digitalWrite(ventiladorPIN,LOW);// apagamos ventilador
@@ -198,7 +201,7 @@ void loop() {
     }
     
   }
-  
+  // las llamas se an logrado sofocar y apagamos el motor.
   if(temperaturapromedio <=temperatura_max - 1 && statusMotor == 1){
     digitalWrite(bombaPIN,LOW);//apagamos la bomba de agua;
     statusMotor = 0;
@@ -208,6 +211,9 @@ void loop() {
     
   }
 }
+/*
+* Metodos para guardar los datos con las diferentes consultas a las tablas correspondientes
+*/
 void saveTemperaturaHumedad(){
     Serial.println("Empezando a guardar humedad y temperatura");
     MySQL_Cursor *cur_mem = new MySQL_Cursor(&conn);
