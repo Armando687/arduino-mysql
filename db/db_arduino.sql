@@ -19,3 +19,11 @@ CREATE TABLE bomba_hidraulica(
     estado boolean,
     fecha timestamp
 );
+CREATE TABLE configuracion(
+	id int AUTO_INCREMENT PRIMARY KEY,
+    temperatura_min int,
+    temperatura_max int,
+    temperatura_media int,
+    temperatura_critica int,
+    fecha timestamp
+)

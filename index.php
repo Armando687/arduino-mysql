@@ -9,6 +9,7 @@
     <title>Home-COM460</title>
 </head>
 <body>
+    <h1>Home</h1>
     <table >
         <tr>
             <th class="title" colspan="2" >Temperatura</th>
@@ -51,14 +52,8 @@
             <td class="content" id="estadoMt">..........</td>
         </tr>
     </table>
-    <!-- <script type="text/javascript">
-     $.getJSON('http://localhost/arduino-mysql/src/php/dht.php',function(datos){
-        //  $.each(datos,function(i,value){
-        //      console.log(i + " " + value );
-        //  });
-        console.log(datos.temperatura);
-     });
-    </script> -->
+    <button><a href="./src/php/config.php">Configuraciones</a></button>
+
     <script src="./src/js/dht.js"></script>
     <script src="./src/js/led.js"></script>
     <script src="./src/js/ventilador.js"></script>
