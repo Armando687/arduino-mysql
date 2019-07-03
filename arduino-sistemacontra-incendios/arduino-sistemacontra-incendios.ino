@@ -33,10 +33,10 @@ int historiaLed = 0;
 int control = 0;
 
 //variables de congiguracion;
-int temperatura_min;
-int temperatura_max;
-int temperatura_media;
-int temperatura_critica;
+int temperatura_min ;
+int temperatura_max ;
+int temperatura_media ;
+int temperatura_critica ;
 
 //intancia de objetos
 LiquidCrystal_I2C lcd(0x3f,16,2); 
@@ -46,7 +46,7 @@ DHT dht2(3,DHT11);
 //datos para conexion a servidor
 byte mac_addr[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
 
-IPAddress server_mysql(192,168,1,10);// IP of the MySQL *server* here
+IPAddress server_mysql(192,168,1,2);// IP of the MySQL *server* here
 IPAddress server_addr(192,168,1,50);// IP of the arduiono *server* here
 char user[] = "arduino";              // MySQL user login username
 char password[] = "arduino";        // MySQL user login password
