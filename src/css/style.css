@@ -1,28 +1,43 @@
-table {
-    width: 500px;
-    margin: 0 auto;
-}
-
-.title {
-    padding: 10px 0px;
-    color: #fff;
-    background: #0d47a1;
-}
-
-.subtitle {
-    background: #64b5f6;
-    padding: 7px 0px;
-    color: #000;
-}
-
-.title-content,
-.content {
-    background: #e3f2fd;
-    padding: 5px;
-}
-
-@media only screen and (max-width: 767px) {
-    table {
-        width: 100%;
-    }
-}
+ table {
+     width: 100%;
+ }
+ 
+ .table td,
+ .table th {
+     padding: .45rem !important;
+ }
+ 
+ .main-container {
+     margin: 0 auto;
+ }
+ 
+ .title {
+     margin: 20px 0px;
+ }
+ 
+ .subtitle {
+     padding: 7px 20px 7px 20px;
+     color: #fff;
+     font-weight: 500;
+     font-size: 18px;
+ }
+ 
+ .title-content,
+ .content {
+     padding: 5px 20px 5px 20px;
+     /* border: solid 1.8px #bee5eb; */
+ }
+ 
+ @media only screen and (max-width: 576px) {
+     .subtitle {
+         padding: 7px 8px 7px 8px;
+     }
+     .title-content,
+     .content {
+         padding: 5px 8px 5px 8px;
+     }
+ }
+ 
+ .actions {
+     margin: 20px 0px;
+ }
