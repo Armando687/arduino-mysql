@@ -6,8 +6,8 @@ La segunda parte corresponde al cliente, que lee los datos de base de datos, en 
 con pequeñas consultas a las diferentes tablas, estas son convertidas en formato JSON , donde son llamados desde una una funcion Javascript Jquery que las setea en tabla correspondiente en un setInterval de 2000ms.
 
 En el cliente existe una opción de configuraciones,la cual es interpretada por el arduino para los intervalos de temperatura a considerar en la simulación; Temperatura mínima , Temperatura máxima, Temperatura media y Temperatura Crítica. Es importante mensionar que solo debe existir una única configuración de en base de datos, de existir mas de un dato de configuración, ocacionaría fallos en el código de lectura del arduino.
-![index.php](https://github.com/Armando687/arduino-mysql/blob/master/img/arduino-mysql-index.png)
-![config.php](https://github.com/Armando687/arduino-mysql/blob/master/img/arduino-mysql-configuraciones.png)
+* ![index.php](https://github.com/Armando687/arduino-mysql/blob/master/img/arduino-mysql-index.png)
+* ![config.php](https://github.com/Armando687/arduino-mysql/blob/master/img/arduino-mysql-configuraciones.png)
 ## Requisitos
 ### Servidor
 * tener instalado LAMP con php >= 7 *v.
